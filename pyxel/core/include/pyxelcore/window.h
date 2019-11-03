@@ -24,6 +24,7 @@ class Window {
   int32_t ScreenScale() const { return screen_scale_; }
 
   void ToggleFullscreen();
+  void SetFullscreen(bool is_fullscreen_);
   bool ProcessEvents();
   void Render(int32_t** screen_data);
   std::string GetDropFile();
