@@ -205,10 +205,6 @@ void System::CheckSpecialInput() {
       is_update_suspended_ = true;
     }
   }
-
-  if (input_->IsButtonPressed(KEY_ESCAPE)) {
-    Quit();
-  }
 }
 
 void System::DrawFrame(void (*draw)()) {
