@@ -20,7 +20,7 @@ Window::Window(const std::string& caption,
   screen_scale_ = screen_scale;
   palette_color_ = palette_color;
   border_color_ = border_color;
-  is_fullscreen_ = false;
+  is_fullscreen_ = true;
 
   if (screen_scale_ <= 0) {
     SDL_DisplayMode display_mode;
@@ -50,6 +50,7 @@ Window::Window(const std::string& caption,
 
   SetupWindowIcon();
   UpdateWindowInfo();
+  SetFullscreen(is_fullscreen_);
 }
 
 void Window::SetupWindowIcon() const {
@@ -101,8 +102,12 @@ void Window::UpdateWindowInfo() {
 void Window::ToggleFullscreen() {
   is_fullscreen_ = !is_fullscreen_;
 
+  SetFullscreen(is_fullscreen_);
+}
+
+void Window::SetFullscreen(bool is_fullscreen) {
   SDL_SetWindowFullscreen(window_,
-                          is_fullscreen_ ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0);
+                          is_fullscreen ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0);
 }
 
 bool Window::ProcessEvents() {
