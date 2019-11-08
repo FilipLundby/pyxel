@@ -33,7 +33,8 @@ System::System(int32_t width,
                const pyxelcore::PaletteColor& palette_color,
                int32_t fps,
                int32_t border_width,
-               int32_t border_color)
+               int32_t border_color,
+               int32_t quit_key)
     : fps_profiler_(MEASURE_FRAME_COUNT),
       update_profiler_(MEASURE_FRAME_COUNT),
       draw_profiler_(MEASURE_FRAME_COUNT) {
@@ -65,6 +66,7 @@ System::System(int32_t width,
 
   palette_color_ = palette_color;
   fps_ = fps;
+  quit_key_ = quit_key;
   frame_count_ = 0;
   one_frame_time_ = 1000.0f / fps_;
   next_update_time_ = SDL_GetTicks();
@@ -204,6 +206,10 @@ void System::CheckSpecialInput() {
       recorder_->SaveScreenCapture();
       is_update_suspended_ = true;
     }
+  }
+
+  if (input_->IsButtonPressed(quit_key_)) {
+    Quit();
   }
 }
 
